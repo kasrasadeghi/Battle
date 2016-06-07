@@ -47,16 +47,16 @@ public class Vec2 {
 
     public Vec2 rotate(double theta) {
         return affine(new double[][] {
-                new double[] {cos(theta), -sin(theta)},
-                new double[] {sin(theta),  cos(theta)}
+                {cos(theta), -sin(theta)},
+                {sin(theta),  cos(theta)}
         });
     }
 
     public Vec2 affine(double[][] matrix) {
-        System.out.println(matrix[0][0] + ", " + matrix[0][1]);
-        System.out.println(matrix[1][0] + ", " + matrix[1][1]);
-        x = x*matrix[0][0] + y*matrix[0][1];
-        y = x*matrix[1][0] + y*matrix[1][1];
+        double tempx = x;
+        double tempy = y;
+        x = tempx*matrix[0][0] + tempy*matrix[0][1];
+        y = tempx*matrix[1][0] + tempy*matrix[1][1];
         return this;
     }
 
