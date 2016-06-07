@@ -1,4 +1,4 @@
-package com.kaz.fight;
+package com.kaz.fight.entities;
 
 import com.kaz.fight.kMath.Vec2;
 import com.kaz.fight.kMath.Velocity;
@@ -9,6 +9,6 @@ import com.kaz.fight.kMath.Velocity;
 public class Projectile extends Actor {
 
     public Projectile(Vec2 pos, double mass, Velocity v) {
-        super(pos, mass, v);
+        super(pos, v, mass);
     }
 }

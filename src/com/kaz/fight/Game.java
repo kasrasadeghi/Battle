@@ -1,6 +1,10 @@
 package com.kaz.fight;
 
+import com.kaz.fight.entities.Player;
+
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -8,18 +12,23 @@ import java.util.List;
  */
 public class Game {
     private List<Player> players;
-    private List<Long> times;
+    private LinkedList<Long> times;
     private Arena arena;
 
     public Game() {
         arena = new Arena();
-        times = new ArrayList<>();
+        times = new LinkedList<>();
         players = new ArrayList<>();
     }
 
     public void update(long delta) {
         players.forEach(Player::tick);
-        times.add(delta);
+        times.push(delta);
+        if (times.size() > 10) times.removeLast();
+    }
+
+    public void addPlayer(String name) {
+
     }
 
     public List<Player> getPlayers() {
@@ -28,9 +37,15 @@ public class Game {
 
     public double getTime() {
         double average = 0;
-        for (int i = 0; i < times.size(); ++i)
-            average += times.get(i);
-        average /= (double)times.size();
+        if (times.isEmpty()) return -1;
+        try {
+            for (long time : times) {
+                average += time;
+            }
+        } catch (NullPointerException | ConcurrentModificationException e) {
+            System.err.println("Weird error with linked list.");
+        }
+        average /= times.size();
         return average;
     }
 

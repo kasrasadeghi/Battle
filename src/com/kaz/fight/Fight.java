@@ -44,17 +44,17 @@ public class Fight {
     }
 
     private void gameLoop() {
-        //TODO: game loop
+        //TODO: redesign game loop
 
         looping = true;
         long lastTime = System.currentTimeMillis();
         while (looping) {
             long delta = System.currentTimeMillis() - lastTime;
-            if (delta >= 1000/40) {
+            if (delta >= 1000/60d) {
+                view.render();
                 game.update(delta);
                 lastTime = System.currentTimeMillis();
             }
-            view.render();
         }
     }
 
